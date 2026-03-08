@@ -66,7 +66,10 @@
                 <div class="slot" id="slot3">🍒</div>
             </div>
             
-            <button class="btn spin" onclick="App.spin()">Крутить</button>
+            <div class="casino-controls">
+                <button class="btn spin" id="spinButton" onclick="App.spin()">Крутить</button>
+                <div class="spin-counter" id="spinCounter">0</div>
+            </div>
             
             <div id="winImage" class="win-image hidden"></div>
             <div id="casinoResult" class="casino-result"></div>
