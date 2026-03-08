@@ -9,72 +9,99 @@
 </head>
 <body>
     <div class="app">
-        <!-- Шапка с Lucky Star (фото 1) -->
-        <div class="header">
-            <img src="https://i.ibb.co/gMSrc8wN/photo-1-2026-03-08-21-15-12.jpg" alt="Lucky Star" class="logo">
-            <h1>DegradationVPN</h1>
+        <!-- Шапка с Lucky Star -->
+        <div class="header glass">
+            <img src="https://i.ibb.co/gMSrc8wN/photo-1-2026-03-08-21-15-12.jpg" alt="Lucky Star" class="logo pulse">
+            <h1>Degradation<span class="light">VPN</span></h1>
         </div>
 
-        <!-- Главное меню (3 кнопки + реклама) -->
-        <div id="mainMenu" class="menu active">
-            <button class="btn primary" onclick="sendToBot('buy')">Купить</button>
-            <button class="btn secondary" onclick="sendToBot('casino')">Казино фек</button>
-            <button class="btn support" onclick="sendToBot('support')">Связь с поддержкой</button>
-            <div class="ad-banner" onclick="sendToBot('ad')">
+        <!-- Главное меню -->
+        <div id="mainMenu" class="menu active fade-in">
+            <button class="btn primary glow" onclick="sendToBot('buy')">
+                <span class="btn-icon">🛒</span> Купить
+            </button>
+            <button class="btn secondary glow" onclick="sendToBot('casino')">
+                <span class="btn-icon">🎰</span> Казино фек
+            </button>
+            <button class="btn support glow" onclick="sendToBot('support')">
+                <span class="btn-icon">📞</span> Связь с поддержкой
+            </button>
+            <div class="ad-banner shine" onclick="sendToBot('ad')">
                 Здесь могла быть ваша реклама
             </div>
         </div>
 
-        <!-- Меню покупки тарифов (без описаний) -->
-        <div id="buyMenu" class="menu hidden">
+        <!-- Меню покупки тарифов -->
+        <div id="buyMenu" class="menu hidden slide-in">
             <h2>Выберите тариф</h2>
             
-            <div class="tariff-card" onclick="selectTariff(30, 20)">
-                <div class="tariff-name">30гб - 20р</div>
+            <div class="tariff-grid">
+                <div class="tariff-card" onclick="selectTariff(30, 20)">
+                    <div class="tariff-emoji">🌱</div>
+                    <div class="tariff-name">30гб</div>
+                    <div class="tariff-price">20р</div>
+                </div>
+                
+                <div class="tariff-card" onclick="selectTariff(100, 40)">
+                    <div class="tariff-emoji">🌿</div>
+                    <div class="tariff-name">100гб</div>
+                    <div class="tariff-price">40р</div>
+                </div>
+                
+                <div class="tariff-card" onclick="selectTariff(120, 105)">
+                    <div class="tariff-emoji">🌲</div>
+                    <div class="tariff-name">120гб</div>
+                    <div class="tariff-price">105р</div>
+                </div>
+                
+                <div class="tariff-card" onclick="selectTariff(150, 180)">
+                    <div class="tariff-emoji">👑</div>
+                    <div class="tariff-name">150гб</div>
+                    <div class="tariff-price">180р</div>
+                </div>
             </div>
             
-            <div class="tariff-card" onclick="selectTariff(100, 40)">
-                <div class="tariff-name">100гб - 40р</div>
-            </div>
-            
-            <div class="tariff-card" onclick="selectTariff(120, 105)">
-                <div class="tariff-name">120гб - 105р</div>
-            </div>
-            
-            <div class="tariff-card" onclick="selectTariff(150, 180)">
-                <div class="tariff-name">150гб - 180р</div>
-            </div>
-            
-            <button class="btn balance" onclick="sendToBot('topup')">Пополнить баланс</button>
-            <button class="btn back" onclick="showMainMenu()">Назад</button>
+            <button class="btn balance glow" onclick="sendToBot('topup')">
+                <span class="btn-icon">💰</span> Пополнить баланс
+            </button>
+            <button class="btn back" onclick="showMainMenu()">
+                <span class="btn-icon">↩️</span> Назад
+            </button>
         </div>
 
         <!-- Подтверждение покупки -->
-        <div id="confirmMenu" class="menu hidden">
+        <div id="confirmMenu" class="menu hidden scale-in">
             <h2>Подтверждение</h2>
-            <div id="tariffDetails" class="tariff-details"></div>
+            <div id="tariffDetails" class="tariff-details glass"></div>
             
-            <button class="btn primary" onclick="confirmPayment()" id="confirmBtn">Оплатить</button>
-            <button class="btn back" onclick="showBuyMenu()">Назад</button>
+            <button class="btn primary pulse" onclick="confirmPayment()" id="confirmBtn">
+                <span class="btn-icon">✅</span> Оплатить
+            </button>
+            <button class="btn back" onclick="showBuyMenu()">
+                <span class="btn-icon">↩️</span> Назад
+            </button>
         </div>
 
-        <!-- Казино фек (эмодзи + фото на весь экран) -->
+        <!-- Казино фек (улучшенное) -->
         <div id="casinoMenu" class="menu hidden">
-            <h2>Казино фек</h2>
+            <h2>🎰 Казино фек</h2>
             
-            <div class="slot-machine" id="slotMachine">
+            <div class="slot-machine glass">
                 <div class="slot" id="slot1">🍒</div>
                 <div class="slot" id="slot2">🍒</div>
                 <div class="slot" id="slot3">🍒</div>
             </div>
             
-            <button class="btn spin" onclick="spinSlots()" id="spinButton">Крутить</button>
+            <div class="casino-controls">
+                <button class="btn spin glow" onclick="spinSlots()" id="spinButton">
+                    <span class="btn-icon">🎲</span> Крутить
+                </button>
+                <div class="spin-counter" id="spinCounter">Попыток: 0</div>
+            </div>
             
-            <!-- Фото на весь экран при выигрыше -->
-            <div id="winImage" class="win-image hidden"></div>
+            <!-- Фото при выигрыше -->
+            <div id="winImage" class="win-image hidden fade-in"></div>
             <div id="casinoResult" class="casino-result"></div>
-            
-            <button class="btn back" onclick="showMainMenu()">Назад</button>
         </div>
     </div>
 
