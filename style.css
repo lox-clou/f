@@ -6,30 +6,23 @@
 }
 
 body {
-    background: linear-gradient(145deg, #e6f0ff 0%, #b8d1ff 100%);
+    background: linear-gradient(135deg, #f0f8ff 0%, #d4e6ff 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 12px;
+    padding: 16px;
 }
 
 .app {
-    max-width: 420px;
+    max-width: 400px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 40px;
-    box-shadow: 0 25px 50px -12px rgba(0, 51, 102, 0.4);
+    background: white;
+    border-radius: 32px;
+    box-shadow: 0 20px 40px rgba(0, 51, 102, 0.2);
     padding: 24px;
-    border: 2px solid rgba(30, 58, 138, 0.3);
-    margin: 16px 0;
-}
-
-.glass {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid #1e3a8a;
+    margin: 20px 0;
 }
 
 .header {
@@ -37,41 +30,23 @@ body {
     align-items: center;
     gap: 12px;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-    padding: 12px 18px;
-    border-radius: 28px;
+    background: #1e3a8a;
+    padding: 12px 16px;
+    border-radius: 20px;
     color: white;
-    box-shadow: 0 8px 16px -4px rgba(30, 58, 138, 0.4);
 }
 
 .logo {
-    width: 52px;
-    height: 52px;
-    border-radius: 26px;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
     object-fit: cover;
-    border: 3px solid white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.pulse {
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
+    border: 2px solid white;
 }
 
 .header h1 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-
-.light {
-    font-weight: 300;
-    opacity: 0.9;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .menu {
@@ -89,246 +64,152 @@ body {
 }
 
 .btn {
-    padding: 16px 20px;
+    padding: 16px;
     border: none;
-    border-radius: 24px;
+    border-radius: 16px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     width: 100%;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    position: relative;
-    overflow: hidden;
+    color: white;
 }
 
 .btn:active {
-    transform: scale(0.96);
-}
-
-.btn-icon {
-    font-size: 20px;
+    transform: scale(0.97);
 }
 
 .primary {
-    background: linear-gradient(145deg, #1e3a8a, #2563eb);
-    color: white;
-    box-shadow: 0 8px 0 #0f2a5a;
+    background: #1e3a8a;
+    box-shadow: 0 4px 0 #0f2a5a;
 }
 
 .secondary {
-    background: linear-gradient(145deg, #3b82f6, #60a5fa);
-    color: white;
-    box-shadow: 0 8px 0 #1e4f9e;
+    background: #3b82f6;
+    box-shadow: 0 4px 0 #1e4f9e;
 }
 
 .support {
-    background: linear-gradient(145deg, #0284c7, #38bdf8);
-    color: white;
-    box-shadow: 0 8px 0 #0369a1;
+    background: #0284c7;
+    box-shadow: 0 4px 0 #0369a1;
 }
 
 .balance {
-    background: linear-gradient(145deg, #059669, #10b981);
-    color: white;
-    box-shadow: 0 8px 0 #047857;
+    background: #059669;
+    box-shadow: 0 4px 0 #047857;
 }
 
 .spin {
-    background: linear-gradient(145deg, #d97706, #f59e0b);
-    color: white;
-    box-shadow: 0 8px 0 #b45309;
+    background: #d97706;
+    box-shadow: 0 4px 0 #b45309;
     font-size: 18px;
 }
 
 .back {
-    background: linear-gradient(145deg, #475569, #64748b);
-    color: white;
-    box-shadow: 0 8px 0 #334155;
-}
-
-.glow {
-    box-shadow: 0 0 0 0 rgba(30, 58, 138, 0.5);
-    animation: glow 2s infinite;
-}
-
-@keyframes glow {
-    0% { box-shadow: 0 0 0 0 rgba(30, 58, 138, 0.5); }
-    50% { box-shadow: 0 0 20px 0 rgba(30, 58, 138, 0.3); }
-    100% { box-shadow: 0 0 0 0 rgba(30, 58, 138, 0.5); }
+    background: #64748b;
+    box-shadow: 0 4px 0 #475569;
+    margin-top: 8px;
 }
 
 .ad-banner {
-    background: linear-gradient(145deg, #f8fafc, #f1f5f9);
-    padding: 18px;
-    border-radius: 24px;
+    background: #f1f5f9;
+    padding: 16px;
+    border-radius: 16px;
     text-align: center;
-    color: #334155;
+    color: #475569;
     font-size: 14px;
-    border: 2px dashed #94a3b8;
+    border: 1px dashed #94a3b8;
     cursor: pointer;
     margin-top: 8px;
 }
 
-.shine {
-    position: relative;
-    overflow: hidden;
-}
-
-.shine::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -75%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
-    transform: skewX(-25deg);
-    animation: shine 3s infinite;
-}
-
-@keyframes shine {
-    0% { left: -75%; }
-    20% { left: 100%; }
-    100% { left: 100%; }
-}
-
 h2 {
     color: #1e3a8a;
-    margin-bottom: 16px;
-    font-size: 24px;
+    margin-bottom: 8px;
+    font-size: 22px;
     text-align: center;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.tariff-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 16px;
 }
 
 .tariff-card {
-    background: linear-gradient(145deg, #ffffff, #f8fafc);
-    padding: 20px 12px;
-    border-radius: 24px;
+    background: #f8fafc;
+    padding: 16px;
+    border-radius: 16px;
     border: 2px solid #cbd5e1;
     cursor: pointer;
     transition: all 0.2s;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
 }
 
 .tariff-card:active {
-    transform: scale(0.95);
+    background: #e2e8f0;
     border-color: #1e3a8a;
-    box-shadow: 0 10px 20px -10px #1e3a8a;
-}
-
-.tariff-emoji {
-    font-size: 32px;
 }
 
 .tariff-name {
-    font-weight: 700;
+    font-weight: bold;
     font-size: 18px;
     color: #1e3a8a;
 }
 
-.tariff-price {
-    font-size: 20px;
-    font-weight: 800;
-    color: #059669;
-    background: rgba(5, 150, 105, 0.1);
-    padding: 4px 12px;
-    border-radius: 30px;
+.tariff-desc {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
 }
 
 .tariff-details {
-    background: rgba(241, 245, 249, 0.7);
-    padding: 24px;
-    border-radius: 24px;
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 16px;
     margin: 10px 0;
     text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: #1e3a8a;
+    font-size: 18px;
 }
 
 /* Казино */
 .slot-machine {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     margin: 20px 0;
-    padding: 24px;
-    background: rgba(226, 232, 240, 0.5);
-    border-radius: 32px;
-    border: 2px solid white;
+    padding: 20px;
+    background: #f1f5f9;
+    border-radius: 20px;
 }
 
 .slot {
-    width: 90px;
-    height: 110px;
+    width: 80px;
+    height: 100px;
     background: white;
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 48px;
-    box-shadow: inset 0 -6px 0 #94a3b8, 0 10px 15px -5px rgba(0,0,0,0.2);
-    border: 2px solid #64748b;
-    transition: all 0.1s;
+    box-shadow: inset 0 -4px 0 #cbd5e1;
+    border: 2px solid #94a3b8;
 }
 
 .slot.spinning {
-    animation: slotSpin 0.1s steps(2) infinite;
+    animation: spin 0.1s linear infinite;
 }
 
-@keyframes slotSpin {
+@keyframes spin {
     0% { transform: translateY(0); }
-    25% { transform: translateY(-15px); }
+    25% { transform: translateY(-10px); }
     50% { transform: translateY(0); }
-    75% { transform: translateY(15px); }
+    75% { transform: translateY(10px); }
     100% { transform: translateY(0); }
-}
-
-.casino-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.spin-counter {
-    background: white;
-    padding: 12px 16px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #1e3a8a;
-    box-shadow: 0 4px 0 #cbd5e1;
 }
 
 .win-image {
     width: 100%;
-    height: 220px;
+    height: 200px;
     margin: 10px 0;
-    border-radius: 24px;
+    border-radius: 16px;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    border: 4px solid #1e3a8a;
-    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
-    transition: all 0.3s;
+    border: 3px solid #1e3a8a;
 }
 
 .win-image.hidden {
@@ -338,20 +219,18 @@ h2 {
 .casino-result {
     text-align: center;
     font-size: 18px;
-    margin: 16px 0;
-    padding: 16px;
-    border-radius: 30px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 12px;
     font-weight: bold;
 }
 
 .casino-result.win {
-    background: linear-gradient(145deg, #d1fae5, #a7f3d0);
+    background: #d1fae5;
     color: #065f46;
-    border: 2px solid #059669;
 }
 
 .casino-result.lose {
-    background: linear-gradient(145deg, #fee2e2, #fecaca);
+    background: #fee2e2;
     color: #991b1b;
-    border: 2px solid #dc2626;
 }
