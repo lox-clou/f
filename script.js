@@ -1,7 +1,6 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// Твои фото для выигрыша
 const winImages = [
     'https://i.ibb.co/tPXDXYcM/photo-2-2026-03-08-21-15-12.jpg',
     'https://i.ibb.co/67v8RMx0/photo-3-2026-03-08-21-15-12.jpg',
@@ -13,17 +12,14 @@ const winImages = [
     'https://i.ibb.co/wrKcfZvP/photo-9-2026-03-08-21-15-12.jpg'
 ];
 
-// Символы казино (только эмодзи)
 const casinoSymbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '🎰', '⭐', '🔔'];
 
-// Состояние
 let selectedTariff = null;
 let isSpinning = false;
 let spinCount = 0;
 
 window.App = {
-    // Навигация
-    showMainMenu: function() {
+    showMainMenu() {
         document.getElementById('mainMenu').classList.add('active');
         document.getElementById('mainMenu').classList.remove('hidden');
         document.getElementById('buyMenu').classList.remove('active');
@@ -34,7 +30,7 @@ window.App = {
         document.getElementById('casinoMenu').classList.add('hidden');
     },
 
-    showBuyMenu: function() {
+    showBuyMenu() {
         document.getElementById('mainMenu').classList.remove('active');
         document.getElementById('mainMenu').classList.add('hidden');
         document.getElementById('buyMenu').classList.add('active');
@@ -45,7 +41,7 @@ window.App = {
         document.getElementById('casinoMenu').classList.add('hidden');
     },
 
-    showConfirmMenu: function() {
+    showConfirmMenu() {
         document.getElementById('mainMenu').classList.remove('active');
         document.getElementById('mainMenu').classList.add('hidden');
         document.getElementById('buyMenu').classList.remove('active');
@@ -56,7 +52,7 @@ window.App = {
         document.getElementById('casinoMenu').classList.add('hidden');
     },
 
-    showCasinoMenu: function() {
+    showCasinoMenu() {
         document.getElementById('mainMenu').classList.remove('active');
         document.getElementById('mainMenu').classList.add('hidden');
         document.getElementById('buyMenu').classList.remove('active');
@@ -68,17 +64,16 @@ window.App = {
         this.resetCasino();
     },
 
-    // Отправка в бота
-    support: function() {
+    support() {
         tg.sendData(JSON.stringify({ action: 'support' }));
         tg.showAlert('Связь с поддержкой будет открыта в боте');
     },
 
-    ad: function() {
+    ad() {
         tg.showAlert('По вопросам рекламы обратитесь в поддержку');
     },
 
-    topup: function() {
+    topup() {
         tg.showPopup({
             title: 'Пополнение баланса',
             message: 'Введите сумму пополнения:',
@@ -99,15 +94,15 @@ window.App = {
         });
     },
 
-    // Покупки
-    selectTariff: function(gb, price) {
-        selectedTariff = { gb, price };
-        document.getElementById('tariffDetails').innerHTML = 
-            `<strong>${gb}гб - ${price}р</strong>`;
+    selectTariff(gb, price, desc) {
+        selectedTariff = { gb, price, desc };
+        document.getElementById('tariffName').textContent = `${gb}гб`;
+        document.getElementById('tariffDesc').textContent = desc;
+        document.getElementById('tariffPrice').textContent = `${price}р`;
         this.showConfirmMenu();
     },
 
-    confirmPayment: function() {
+    confirmPayment() {
         if (!selectedTariff) return;
         tg.sendData(JSON.stringify({
             action: 'purchase',
@@ -119,8 +114,7 @@ window.App = {
         selectedTariff = null;
     },
 
-    // Казино
-    resetCasino: function() {
+    resetCasino() {
         document.getElementById('slot1').textContent = '🍒';
         document.getElementById('slot2').textContent = '🍒';
         document.getElementById('slot3').textContent = '🍒';
@@ -130,7 +124,7 @@ window.App = {
         spinCount = 0;
     },
 
-    spin: function() {
+    spin() {
         if (isSpinning) return;
         
         isSpinning = true;
@@ -190,5 +184,4 @@ window.App = {
     }
 };
 
-// Запуск
 App.showMainMenu();
