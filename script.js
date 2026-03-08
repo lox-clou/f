@@ -1,6 +1,18 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
 
+// Твои фото для показа при выигрыше (фото 2-9)
+const winImages = [
+    'https://i.ibb.co/tPXDXYcM/photo-2-2026-03-08-21-15-12.jpg',
+    'https://i.ibb.co/67v8RMx0/photo-3-2026-03-08-21-15-12.jpg',
+    'https://i.ibb.co/YTcFgFRH/photo-4-2026-03-08-21-15-12.jpg',
+    'https://i.ibb.co/TQpCnCh/photo-5-2026-03-08-21-15-12.jpg',
+    'https://i.ibb.co/7NT1BJsq/photo-6-2026-03-08-21-15-12.jpg',
+    'https://i.ibb.co/prZckKvq/photo-7-2026-03-08-21-15-12.jpg',
+    'https://i.ibb.co/8nyGwSKk/photo-8-2026-03-08-21-15-12.jpg',
+    'https://i.ibb.co/wrKcfZvP/photo-9-2026-03-08-21-15-12.jpg'
+];
+
 // Данные о выбранном тарифе
 let selectedTariff = null;
 
@@ -122,7 +134,7 @@ function confirmPayment() {
     selectedTariff = null;
 }
 
-// Казино фек (без эмодзи)
+// Казино фек
 let casinoSymbols = ['7', 'BAR', 'WIN', 'CHERRY', 'BELL', 'STAR'];
 let isSpinning = false;
 
@@ -132,6 +144,11 @@ function resetCasino() {
     document.getElementById('slot3').textContent = '7';
     document.getElementById('casinoResult').innerHTML = '';
     document.getElementById('casinoResult').className = 'casino-result';
+    
+    // Прячем фото
+    let winImage = document.getElementById('winImage');
+    winImage.classList.add('hidden');
+    winImage.style.backgroundImage = '';
 }
 
 function spinSlots() {
@@ -141,6 +158,10 @@ function spinSlots() {
     let spinButton = document.getElementById('spinButton');
     spinButton.disabled = true;
     spinButton.style.opacity = '0.5';
+    
+    // Прячем предыдущее фото
+    let winImage = document.getElementById('winImage');
+    winImage.classList.add('hidden');
     
     // Добавляем анимацию
     document.querySelectorAll('.slot').forEach(slot => {
@@ -166,7 +187,13 @@ function spinSlots() {
         
         // Проверяем результат
         let resultDiv = document.getElementById('casinoResult');
+        
         if (results[0] === results[1] && results[1] === results[2]) {
+            // Выигрыш - показываем случайное фото из твоих
+            let randomIndex = Math.floor(Math.random() * winImages.length);
+            winImage.style.backgroundImage = `url('${winImages[randomIndex]}')`;
+            winImage.classList.remove('hidden');
+            
             resultDiv.innerHTML = 'Поздравляю, казино фек поэтому идите закупайтесь';
             resultDiv.className = 'casino-result win';
         } else {
