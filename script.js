@@ -122,6 +122,7 @@ window.App = {
         document.getElementById('casinoResult').className = 'casino-result';
         document.getElementById('winImage').classList.add('hidden');
         spinCount = 0;
+        document.getElementById('spinCounter').textContent = '0';
     },
 
     spin() {
@@ -129,8 +130,9 @@ window.App = {
         
         isSpinning = true;
         spinCount++;
+        document.getElementById('spinCounter').textContent = spinCount;
         
-        const spinButton = event.target;
+        const spinButton = document.getElementById('spinButton');
         spinButton.disabled = true;
         spinButton.style.opacity = '0.7';
         
@@ -151,17 +153,30 @@ window.App = {
             clearInterval(spinInterval);
             slots.forEach(slot => slot.classList.remove('spinning'));
             
-            const results = [
-                casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)],
-                casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)],
-                casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)]
-            ];
+            let results;
+            let isWin;
+            
+            // Проверяем, является ли текущая попытка 30-й (30, 60, 90, 120...)
+            if (spinCount % 30 === 0) {
+                // Гарантированный выигрыш
+                const winSymbol = casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)];
+                results = [winSymbol, winSymbol, winSymbol];
+                isWin = true;
+            } else {
+                // Случайный результат (почти всегда проигрыш)
+                do {
+                    results = [
+                        casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)],
+                        casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)],
+                        casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)]
+                    ];
+                    isWin = results[0] === results[1] && results[1] === results[2];
+                } while (isWin);
+            }
             
             document.getElementById('slot1').textContent = results[0];
             document.getElementById('slot2').textContent = results[1];
             document.getElementById('slot3').textContent = results[2];
-            
-            const isWin = results[0] === results[1] && results[1] === results[2] && Math.random() < 0.05;
             
             const resultDiv = document.getElementById('casinoResult');
             
