@@ -1,6 +1,5 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
-tg.enableClosingConfirmation();
 
 // Твои фото Lucky Star для выигрыша
 const winImages = [
@@ -14,14 +13,14 @@ const winImages = [
     'https://i.ibb.co/wrKcfZvP/photo-9-2026-03-08-21-15-12.jpg'
 ];
 
-// Символы казино (ТОЛЬКО ЭМОДЗИ - БЕЗ БУКВ)
+// Символы казино (ТОЛЬКО ЭМОДЗИ)
 const casinoSymbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '🎰', '⭐', '🔔'];
 
 let selectedTariff = null;
 let isSpinning = false;
 let spinCount = 0;
 
-// Предзагрузка фото для плавного появления
+// Предзагрузка фото
 function preloadImages() {
     winImages.forEach(url => {
         const img = new Image();
@@ -30,65 +29,108 @@ function preloadImages() {
 }
 preloadImages();
 
-// Вибрация при действиях
-function vibrate(style = 'medium') {
-    if (tg.HapticFeedback) {
-        tg.HapticFeedback.impactOccurred(style);
-    }
-}
-
-// Уведомление с вибрацией
-function notify(type = 'success') {
-    if (tg.HapticFeedback) {
-        tg.HapticFeedback.notificationOccurred(type);
-    }
-}
-
 // ================== НАВИГАЦИЯ ==================
 
 function showMainMenu() {
-    document.querySelectorAll('.menu').forEach(menu => {
-        menu.classList.remove('active');
-        menu.classList.add('hidden');
-    });
     document.getElementById('mainMenu').classList.add('active');
     document.getElementById('mainMenu').classList.remove('hidden');
+    
+    document.getElementById('buyMenu').classList.remove('active');
+    document.getElementById('buyMenu').classList.add('hidden');
+    
+    document.getElementById('confirmMenu').classList.remove('active');
+    document.getElementById('confirmMenu').classList.add('hidden');
+    
+    document.getElementById('casinoMenu').classList.remove('active');
+    document.getElementById('casinoMenu').classList.add('hidden');
 }
 
 function showBuyMenu() {
-    document.querySelectorAll('.menu').forEach(menu => {
-        menu.classList.remove('active');
-        menu.classList.add('hidden');
-    });
+    document.getElementById('mainMenu').classList.remove('active');
+    document.getElementById('mainMenu').classList.add('hidden');
+    
     document.getElementById('buyMenu').classList.add('active');
     document.getElementById('buyMenu').classList.remove('hidden');
+    
+    document.getElementById('confirmMenu').classList.remove('active');
+    document.getElementById('confirmMenu').classList.add('hidden');
+    
+    document.getElementById('casinoMenu').classList.remove('active');
+    document.getElementById('casinoMenu').classList.add('hidden');
 }
 
 function showConfirmMenu() {
-    document.querySelectorAll('.menu').forEach(menu => {
-        menu.classList.remove('active');
-        menu.classList.add('hidden');
-    });
+    document.getElementById('mainMenu').classList.remove('active');
+    document.getElementById('mainMenu').classList.add('hidden');
+    
+    document.getElementById('buyMenu').classList.remove('active');
+    document.getElementById('buyMenu').classList.add('hidden');
+    
     document.getElementById('confirmMenu').classList.add('active');
     document.getElementById('confirmMenu').classList.remove('hidden');
+    
+    document.getElementById('casinoMenu').classList.remove('active');
+    document.getElementById('casinoMenu').classList.add('hidden');
 }
 
 function showCasinoMenu() {
-    document.querySelectorAll('.menu').forEach(menu => {
-        menu.classList.remove('active');
-        menu.classList.add('hidden');
-    });
+    document.getElementById('mainMenu').classList.remove('active');
+    document.getElementById('mainMenu').classList.add('hidden');
+    
+    document.getElementById('buyMenu').classList.remove('active');
+    document.getElementById('buyMenu').classList.add('hidden');
+    
+    document.getElementById('confirmMenu').classList.remove('active');
+    document.getElementById('confirmMenu').classList.add('hidden');
+    
     document.getElementById('casinoMenu').classList.add('active');
     document.getElementById('casinoMenu').classList.remove('hidden');
+    
     resetCasino();
 }
 
 // ================== ОТПРАВКА В БОТА ==================
 
-function sendToBot(action, data = {}) {
-    data.action = action;
+function sendToBot(action) {
+    let data = { action: action };
+    
+    if (action === 'buy') {
+        showBuyMenu();
+        return;
+    } else if (action === 'casino') {
+        showCasinoMenu();
+        return;
+    } else if (action === 'topup') {
+        tg.showPopup({
+            title: 'Пополнение баланса',
+            message: 'Введите сумму пополнения:',
+            buttons: [
+                { type: 'default', text: '100', id: '100' },
+                { type: 'default', text: '200', id: '200' },
+                { type: 'default', text: '500', id: '500' },
+                { type: 'cancel' }
+            ]
+        }, function(buttonId) {
+            if (buttonId) {
+                tg.sendData(JSON.stringify({
+                    action: 'topup',
+                    amount: parseInt(buttonId)
+                }));
+                tg.showAlert('✅ Запрос на пополнение отправлен');
+            }
+        });
+        return;
+    } else if (action === 'support') {
+        tg.sendData(JSON.stringify({ action: 'support' }));
+        tg.showAlert('📞 Связь с поддержкой будет открыта в боте');
+        return;
+    } else if (action === 'ad') {
+        tg.sendData(JSON.stringify({ action: 'ad' }));
+        tg.showAlert('📢 По вопросам рекламы обратитесь в поддержку');
+        return;
+    }
+    
     tg.sendData(JSON.stringify(data));
-    vibrate();
 }
 
 // ================== ПОКУПКИ ==================
@@ -103,13 +145,19 @@ function selectTariff(gb, price) {
 
 function confirmPayment() {
     if (!selectedTariff) return;
-    sendToBot('purchase', selectedTariff);
+    
+    tg.sendData(JSON.stringify({
+        action: 'purchase',
+        gb: selectedTariff.gb,
+        price: selectedTariff.price
+    }));
+    
     tg.showAlert(`✅ Запрос на покупку ${selectedTariff.gb}гб отправлен`);
     showMainMenu();
     selectedTariff = null;
 }
 
-// ================== КАЗИНО (ТОЛЬКО ЭМОДЗИ) ==================
+// ================== КАЗИНО ==================
 
 function resetCasino() {
     document.getElementById('slot1').textContent = '🍒';
@@ -133,8 +181,6 @@ function spinSlots() {
     spinButton.disabled = true;
     spinButton.style.opacity = '0.7';
     
-    vibrate('heavy');
-    
     // Прячем фото
     const winImage = document.getElementById('winImage');
     winImage.classList.add('hidden');
@@ -143,7 +189,7 @@ function spinSlots() {
     const slots = document.querySelectorAll('.slot');
     slots.forEach(slot => slot.classList.add('spinning'));
     
-    // Эффект быстрой смены символов (как в настоящем слоте)
+    // Эффект быстрой смены символов
     const spinInterval = setInterval(() => {
         slots.forEach(slot => {
             const randomSymbol = casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)];
@@ -180,8 +226,6 @@ function spinSlots() {
             
             resultDiv.innerHTML = '🎉 ПОБЕДА! Казино фек - идите закупайтесь!';
             resultDiv.className = 'casino-result win';
-            
-            notify('success');
         } else {
             resultDiv.innerHTML = '😢 Жалко, но казино фек';
             resultDiv.className = 'casino-result lose';
@@ -197,13 +241,4 @@ function spinSlots() {
 
 document.addEventListener('DOMContentLoaded', function() {
     showMainMenu();
-    
-    // Настраиваем главную кнопку Telegram
-    tg.MainButton.setText('Закрыть');
-    tg.MainButton.onClick(function() {
-        tg.close();
-    });
-    
-    // Показываем кнопку только в казино?
-    // Можно настроить под свои нужды
 });
