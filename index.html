@@ -16,7 +16,7 @@
         </div>
 
         <!-- Главное меню -->
-        <div id="mainMenu" class="menu active fade-in">
+        <div id="mainMenu" class="menu active">
             <button class="btn primary glow" onclick="sendToBot('buy')">
                 <span class="btn-icon">🛒</span> Купить
             </button>
@@ -32,7 +32,7 @@
         </div>
 
         <!-- Меню покупки тарифов -->
-        <div id="buyMenu" class="menu hidden slide-in">
+        <div id="buyMenu" class="menu hidden">
             <h2>Выберите тариф</h2>
             
             <div class="tariff-grid">
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Подтверждение покупки -->
-        <div id="confirmMenu" class="menu hidden scale-in">
+        <div id="confirmMenu" class="menu hidden">
             <h2>Подтверждение</h2>
             <div id="tariffDetails" class="tariff-details glass"></div>
             
@@ -82,7 +82,7 @@
             </button>
         </div>
 
-        <!-- Казино фек (улучшенное) -->
+        <!-- Казино фек -->
         <div id="casinoMenu" class="menu hidden">
             <h2>🎰 Казино фек</h2>
             
@@ -100,7 +100,7 @@
             </div>
             
             <!-- Фото при выигрыше -->
-            <div id="winImage" class="win-image hidden fade-in"></div>
+            <div id="winImage" class="win-image hidden"></div>
             <div id="casinoResult" class="casino-result"></div>
         </div>
     </div>
