@@ -6,23 +6,36 @@
 }
 
 body {
-    background: linear-gradient(135deg, #f0f8ff 0%, #d4e6ff 100%);
+    background: linear-gradient(145deg, #f0f8ff 0%, #d4e6ff 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding: 16px;
+    animation: bgFade 3s ease infinite alternate;
+}
+
+@keyframes bgFade {
+    0% { background: linear-gradient(145deg, #f0f8ff, #d4e6ff); }
+    100% { background: linear-gradient(145deg, #e6f0ff, #c0d9ff); }
 }
 
 .app {
     max-width: 400px;
     width: 100%;
-    background: white;
-    border-radius: 32px;
-    box-shadow: 0 20px 40px rgba(0, 51, 102, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    box-shadow: 0 20px 40px rgba(0, 51, 102, 0.3);
     padding: 24px;
     border: 2px solid #1e3a8a;
     margin: 20px 0;
+    animation: appAppear 0.5s ease-out;
+}
+
+@keyframes appAppear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .header {
@@ -30,10 +43,18 @@ body {
     align-items: center;
     gap: 12px;
     margin-bottom: 24px;
-    background: #1e3a8a;
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
     padding: 12px 16px;
-    border-radius: 20px;
+    border-radius: 30px;
     color: white;
+    box-shadow: 0 8px 16px rgba(0, 51, 102, 0.3);
+    animation: headerGlow 3s infinite;
+}
+
+@keyframes headerGlow {
+    0% { box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3); }
+    50% { box-shadow: 0 8px 24px rgba(30, 58, 138, 0.5); }
+    100% { box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3); }
 }
 
 .logo {
@@ -41,18 +62,31 @@ body {
     height: 48px;
     border-radius: 24px;
     object-fit: cover;
-    border: 2px solid white;
+    border: 3px solid white;
+    animation: logoSpin 10s linear infinite;
+}
+
+@keyframes logoSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .header h1 {
     font-size: 20px;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .menu {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    animation: menuFade 0.4s ease;
+}
+
+@keyframes menuFade {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .menu.active {
@@ -66,7 +100,7 @@ body {
 .btn {
     padding: 16px;
     border: none;
-    border-radius: 16px;
+    border-radius: 30px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -74,142 +108,236 @@ body {
     width: 100%;
     text-align: center;
     color: white;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.btn:active::after {
+    width: 200px;
+    height: 200px;
 }
 
 .primary {
-    background: #1e3a8a;
-    box-shadow: 0 4px 0 #0f2a5a;
+    background: linear-gradient(145deg, #1e3a8a, #2563eb);
+    box-shadow: 0 6px 0 #0f2a5a;
 }
 
 .secondary {
-    background: #3b82f6;
-    box-shadow: 0 4px 0 #1e4f9e;
+    background: linear-gradient(145deg, #3b82f6, #60a5fa);
+    box-shadow: 0 6px 0 #1e4f9e;
 }
 
 .support {
-    background: #0284c7;
-    box-shadow: 0 4px 0 #0369a1;
+    background: linear-gradient(145deg, #0284c7, #38bdf8);
+    box-shadow: 0 6px 0 #0369a1;
 }
 
 .balance {
-    background: #059669;
-    box-shadow: 0 4px 0 #047857;
+    background: linear-gradient(145deg, #059669, #10b981);
+    box-shadow: 0 6px 0 #047857;
 }
 
 .spin {
-    background: #d97706;
-    box-shadow: 0 4px 0 #b45309;
+    background: linear-gradient(145deg, #d97706, #f59e0b);
+    box-shadow: 0 6px 0 #b45309;
     font-size: 18px;
 }
 
 .back {
-    background: #64748b;
-    box-shadow: 0 4px 0 #475569;
+    background: linear-gradient(145deg, #475569, #64748b);
+    box-shadow: 0 6px 0 #334155;
     margin-top: 8px;
 }
 
 .ad-banner {
-    background: #f1f5f9;
+    background: linear-gradient(145deg, #f8fafc, #f1f5f9);
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 30px;
     text-align: center;
-    color: #475569;
+    color: #334155;
     font-size: 14px;
-    border: 1px dashed #94a3b8;
+    border: 2px dashed #94a3b8;
     cursor: pointer;
     margin-top: 8px;
+    transition: all 0.3s;
+    animation: bannerPulse 2s infinite;
+}
+
+@keyframes bannerPulse {
+    0% { border-color: #94a3b8; }
+    50% { border-color: #1e3a8a; }
+    100% { border-color: #94a3b8; }
+}
+
+.ad-banner:active {
+    transform: scale(0.98);
+    background: #e2e8f0;
 }
 
 h2 {
     color: #1e3a8a;
-    margin-bottom: 8px;
-    font-size: 22px;
+    margin-bottom: 16px;
+    font-size: 24px;
     text-align: center;
+    font-weight: 700;
+    animation: titleGlow 2s infinite;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 0 rgba(30, 58, 138, 0); }
+    50% { text-shadow: 0 0 10px rgba(30, 58, 138, 0.3); }
+    100% { text-shadow: 0 0 0 rgba(30, 58, 138, 0); }
 }
 
 .tariff-card {
-    background: #f8fafc;
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 30px;
     border: 2px solid #cbd5e1;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s;
+    text-align: center;
+    margin-bottom: 8px;
+    animation: cardAppear 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.tariff-card:nth-child(1) { animation-delay: 0.1s; }
+.tariff-card:nth-child(2) { animation-delay: 0.2s; }
+.tariff-card:nth-child(3) { animation-delay: 0.3s; }
+.tariff-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes cardAppear {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.tariff-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2);
 }
 
 .tariff-card:active {
-    background: #e2e8f0;
+    transform: scale(0.97);
     border-color: #1e3a8a;
+    background: #e2e8f0;
 }
 
 .tariff-name {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 18px;
     color: #1e3a8a;
 }
 
-.tariff-desc {
-    font-size: 14px;
-    color: #64748b;
-    margin-top: 4px;
-}
-
 .tariff-details {
-    background: #f1f5f9;
-    padding: 20px;
-    border-radius: 16px;
+    background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+    padding: 24px;
+    border-radius: 30px;
     margin: 10px 0;
     text-align: center;
-    font-size: 18px;
+    animation: detailsAppear 0.5s ease;
 }
 
-/* Казино */
+@keyframes detailsAppear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.detail-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 8px;
+}
+
+.detail-desc {
+    font-size: 16px;
+    color: #475569;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.detail-price {
+    font-size: 28px;
+    font-weight: 800;
+    color: #059669;
+}
+
 .slot-machine {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     margin: 20px 0;
-    padding: 20px;
-    background: #f1f5f9;
-    border-radius: 20px;
+    padding: 24px;
+    background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
+    border-radius: 40px;
+    border: 2px solid white;
+    animation: machineGlow 3s infinite;
+}
+
+@keyframes machineGlow {
+    0% { box-shadow: 0 0 10px rgba(30, 58, 138, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(30, 58, 138, 0.4); }
+    100% { box-shadow: 0 0 10px rgba(30, 58, 138, 0.2); }
 }
 
 .slot {
     width: 80px;
     height: 100px;
     background: white;
-    border-radius: 16px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 48px;
-    box-shadow: inset 0 -4px 0 #cbd5e1;
-    border: 2px solid #94a3b8;
+    box-shadow: inset 0 -6px 0 #94a3b8, 0 10px 15px -5px rgba(0,0,0,0.2);
+    border: 2px solid #64748b;
+    transition: all 0.1s;
 }
 
 .slot.spinning {
-    animation: spin 0.1s linear infinite;
+    animation: slotSpin 0.1s steps(2) infinite;
 }
 
-@keyframes spin {
+@keyframes slotSpin {
     0% { transform: translateY(0); }
-    25% { transform: translateY(-10px); }
+    25% { transform: translateY(-12px); }
     50% { transform: translateY(0); }
-    75% { transform: translateY(10px); }
+    75% { transform: translateY(12px); }
     100% { transform: translateY(0); }
 }
 
 .win-image {
     width: 100%;
     height: 200px;
-    margin: 10px 0;
-    border-radius: 16px;
+    margin: 15px 0;
+    border-radius: 30px;
     background-size: cover;
     background-position: center;
-    border: 3px solid #1e3a8a;
+    border: 4px solid #1e3a8a;
+    animation: winImageAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes winImageAppear {
+    from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
 }
 
 .win-image.hidden {
@@ -219,18 +347,26 @@ h2 {
 .casino-result {
     text-align: center;
     font-size: 18px;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 12px;
+    margin: 15px 0;
+    padding: 16px;
+    border-radius: 40px;
     font-weight: bold;
+    animation: resultPop 0.5s ease;
+}
+
+@keyframes resultPop {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .casino-result.win {
-    background: #d1fae5;
+    background: linear-gradient(145deg, #d1fae5, #a7f3d0);
     color: #065f46;
+    border: 2px solid #059669;
 }
 
 .casino-result.lose {
-    background: #fee2e2;
+    background: linear-gradient(145deg, #fee2e2, #fecaca);
     color: #991b1b;
+    border: 2px solid #dc2626;
 }
