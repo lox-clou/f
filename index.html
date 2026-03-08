@@ -9,13 +9,13 @@
 </head>
 <body>
     <div class="app">
-        <!-- Шапка с Lucky Star (твоё фото 1) -->
+        <!-- Шапка с Lucky Star (фото 1) -->
         <div class="header">
             <img src="https://i.ibb.co/gMSrc8wN/photo-1-2026-03-08-21-15-12.jpg" alt="Lucky Star" class="logo">
             <h1>DegradationVPN</h1>
         </div>
 
-        <!-- Главное меню -->
+        <!-- Главное меню (3 кнопки + реклама) -->
         <div id="mainMenu" class="menu active">
             <button class="btn primary" onclick="sendToBot('buy')">Купить</button>
             <button class="btn secondary" onclick="sendToBot('casino')">Казино фек</button>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <!-- Меню покупки тарифов -->
+        <!-- Меню покупки тарифов (без описаний) -->
         <div id="buyMenu" class="menu hidden">
             <h2>Выберите тариф</h2>
             
@@ -58,19 +58,19 @@
             <button class="btn back" onclick="showBuyMenu()">Назад</button>
         </div>
 
-        <!-- Казино фек (с твоими фото при выигрыше) -->
+        <!-- Казино фек (эмодзи + фото на весь экран) -->
         <div id="casinoMenu" class="menu hidden">
             <h2>Казино фек</h2>
             
             <div class="slot-machine" id="slotMachine">
-                <div class="slot" id="slot1">7</div>
-                <div class="slot" id="slot2">7</div>
-                <div class="slot" id="slot3">7</div>
+                <div class="slot" id="slot1">🍒</div>
+                <div class="slot" id="slot2">🍒</div>
+                <div class="slot" id="slot3">🍒</div>
             </div>
             
             <button class="btn spin" onclick="spinSlots()" id="spinButton">Крутить</button>
             
-            <!-- Здесь появляется фото при выигрыше -->
+            <!-- Фото на весь экран при выигрыше -->
             <div id="winImage" class="win-image hidden"></div>
             <div id="casinoResult" class="casino-result"></div>
             
