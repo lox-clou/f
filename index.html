@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DegradationVPN</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Шапка с Lucky Star -->
+        <div class="header">
+            <img src="https://i.ibb.co/ZKR7HnS/lucky-star.png" alt="Lucky Star" class="logo" id="luckyLogo">
+            <h1>DegradationVPN</h1>
+            <div class="balance" id="balanceDisplay">100р</div>
+        </div>
+
+        <!-- Главное меню (3 кнопки + реклама) -->
+        <div id="mainMenu" class="menu active">
+            <button class="btn primary" onclick="showBuyMenu()">Купить</button>
+            <button class="btn secondary" onclick="showCasino()">Казино (фейк)</button>
+            <button class="btn support" onclick="openSupport()">Связь с поддержкой</button>
+            <div class="ad-banner" onclick="showAdMessage()">
+                Здесь могла быть ваша реклама
+            </div>
+        </div>
+
+        <!-- Меню покупки тарифов -->
+        <div id="buyMenu" class="menu">
+            <h2>Выберите тариф</h2>
+            
+            <div class="tariff-card" onclick="selectTariff(30, 20, 'Неделька, просто попробовать')">
+                <div class="tariff-name">30гб - 20р</div>
+                <div class="tariff-desc">Неделька, просто попробовать</div>
+            </div>
+            
+            <div class="tariff-card" onclick="selectTariff(100, 40, 'Уже получше, купите еще (пж)')">
+                <div class="tariff-name">100гб - 40р</div>
+                <div class="tariff-desc">Уже получше, купите еще (пж)</div>
+            </div>
+            
+            <div class="tariff-card" onclick="selectTariff(120, 105, 'Стандарт, просто стандарт')">
+                <div class="tariff-name">120гб - 105р</div>
+                <div class="tariff-desc">Стандарт, просто стандарт</div>
+            </div>
+            
+            <div class="tariff-card" onclick="selectTariff(150, 180, 'Ого, самое дорогое что есть')">
+                <div class="tariff-name">150гб - 180р</div>
+                <div class="tariff-desc">Ого, самое дорогое что есть</div>
+            </div>
+            
+            <button class="btn balance" onclick="topUpBalance()">Пополнить баланс</button>
+            <button class="btn back" onclick="showMainMenu()">Назад</button>
+        </div>
+
+        <!-- Подтверждение покупки -->
+        <div id="confirmMenu" class="menu">
+            <h2>Подтверждение</h2>
+            <div id="tariffDetails" class="tariff-details"></div>
+            <div class="balance-check" id="balanceCheck"></div>
+            
+            <button class="btn primary" onclick="confirmPayment()" id="confirmBtn">Оплатить</button>
+            <button class="btn back" onclick="showBuyMenu()">Назад</button>
+        </div>
+
+        <!-- Меню казино -->
+        <div id="casinoMenu" class="menu">
+            <h2>Фейк-казино</h2>
+            
+            <div class="slot-machine" id="slotMachine">
+                <div class="slot" id="slot1">🍒</div>
+                <div class="slot" id="slot2">🍒</div>
+                <div class="slot" id="slot3">🍒</div>
+            </div>
+            
+            <button class="btn spin" onclick="spinSlots()" id="spinButton">Крутить</button>
+            <div id="casinoResult" class="casino-result"></div>
+            
+            <button class="btn back" onclick="showMainMenu()">Назад</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
