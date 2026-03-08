@@ -12,6 +12,15 @@ body {
     justify-content: center;
     align-items: flex-start;
     padding: 16px;
+    animation: bgWave 8s ease infinite alternate;
+}
+
+@keyframes bgWave {
+    0% { background: linear-gradient(145deg, #f0f8ff, #d4e6ff); }
+    25% { background: linear-gradient(145deg, #e6f0ff, #c0d9ff); }
+    50% { background: linear-gradient(145deg, #d9e6ff, #b8d1ff); }
+    75% { background: linear-gradient(145deg, #ccdfff, #a3c6ff); }
+    100% { background: linear-gradient(145deg, #bfd8ff, #94bbff); }
 }
 
 .app {
@@ -24,6 +33,15 @@ body {
     padding: 24px;
     border: 2px solid #1e3a8a;
     margin: 20px 0;
+    animation: appFloat 4s ease-in-out infinite;
+}
+
+@keyframes appFloat {
+    0% { transform: translateY(0px); }
+    25% { transform: translateY(-5px); }
+    50% { transform: translateY(0px); }
+    75% { transform: translateY(5px); }
+    100% { transform: translateY(0px); }
 }
 
 .header {
@@ -36,6 +54,14 @@ body {
     border-radius: 30px;
     color: white;
     box-shadow: 0 8px 16px rgba(0, 51, 102, 0.3);
+    animation: headerPulse 3s infinite;
+}
+
+@keyframes headerPulse {
+    0% { box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3); }
+    33% { box-shadow: 0 12px 24px rgba(30, 58, 138, 0.5); }
+    66% { box-shadow: 0 8px 20px rgba(30, 58, 138, 0.4); }
+    100% { box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3); }
 }
 
 .logo {
@@ -44,17 +70,42 @@ body {
     border-radius: 24px;
     object-fit: cover;
     border: 3px solid white;
+    animation: logoSpin 10s linear infinite, logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes logoGlow {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.2); }
 }
 
 .header h1 {
     font-size: 20px;
     font-weight: 600;
+    letter-spacing: 0.5px;
+    animation: textShimmer 3s infinite;
+}
+
+@keyframes textShimmer {
+    0% { opacity: 1; }
+    50% { opacity: 0.9; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+    100% { opacity: 1; }
 }
 
 .menu {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    animation: menuSlide 0.4s ease;
+}
+
+@keyframes menuSlide {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .menu.active {
@@ -76,42 +127,110 @@ body {
     width: 100%;
     text-align: center;
     color: white;
+    position: relative;
+    overflow: hidden;
+    animation: btnAppear 0.3s ease-out;
+}
+
+@keyframes btnAppear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .btn:active {
     transform: scale(0.96);
 }
 
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.btn:active::after {
+    width: 200px;
+    height: 200px;
+}
+
 .primary {
     background: linear-gradient(145deg, #1e3a8a, #2563eb);
     box-shadow: 0 6px 0 #0f2a5a;
+    animation: primaryPulse 2s infinite;
+}
+
+@keyframes primaryPulse {
+    0% { box-shadow: 0 6px 0 #0f2a5a; }
+    50% { box-shadow: 0 6px 15px #2563eb; }
+    100% { box-shadow: 0 6px 0 #0f2a5a; }
 }
 
 .secondary {
     background: linear-gradient(145deg, #3b82f6, #60a5fa);
     box-shadow: 0 6px 0 #1e4f9e;
+    animation: secondaryPulse 2s infinite 0.2s;
+}
+
+@keyframes secondaryPulse {
+    0% { box-shadow: 0 6px 0 #1e4f9e; }
+    50% { box-shadow: 0 6px 15px #60a5fa; }
+    100% { box-shadow: 0 6px 0 #1e4f9e; }
 }
 
 .support {
     background: linear-gradient(145deg, #0284c7, #38bdf8);
     box-shadow: 0 6px 0 #0369a1;
+    animation: supportPulse 2s infinite 0.4s;
+}
+
+@keyframes supportPulse {
+    0% { box-shadow: 0 6px 0 #0369a1; }
+    50% { box-shadow: 0 6px 15px #38bdf8; }
+    100% { box-shadow: 0 6px 0 #0369a1; }
 }
 
 .balance {
     background: linear-gradient(145deg, #059669, #10b981);
     box-shadow: 0 6px 0 #047857;
+    animation: balancePulse 2s infinite 0.6s;
+}
+
+@keyframes balancePulse {
+    0% { box-shadow: 0 6px 0 #047857; }
+    50% { box-shadow: 0 6px 15px #10b981; }
+    100% { box-shadow: 0 6px 0 #047857; }
 }
 
 .spin {
     background: linear-gradient(145deg, #d97706, #f59e0b);
     box-shadow: 0 6px 0 #b45309;
     font-size: 18px;
+    animation: spinPulse 2s infinite 0.8s;
+}
+
+@keyframes spinPulse {
+    0% { box-shadow: 0 6px 0 #b45309; }
+    50% { box-shadow: 0 6px 15px #f59e0b; }
+    100% { box-shadow: 0 6px 0 #b45309; }
 }
 
 .back {
     background: linear-gradient(145deg, #475569, #64748b);
     box-shadow: 0 6px 0 #334155;
     margin-top: 8px;
+    animation: backPulse 2s infinite 1s;
+}
+
+@keyframes backPulse {
+    0% { box-shadow: 0 6px 0 #334155; }
+    50% { box-shadow: 0 6px 15px #64748b; }
+    100% { box-shadow: 0 6px 0 #334155; }
 }
 
 .ad-banner {
@@ -124,6 +243,27 @@ body {
     border: 2px dashed #94a3b8;
     cursor: pointer;
     margin-top: 8px;
+    transition: all 0.3s;
+    animation: bannerPulse 2s infinite, bannerWobble 5s infinite;
+}
+
+@keyframes bannerPulse {
+    0% { border-color: #94a3b8; }
+    50% { border-color: #1e3a8a; }
+    100% { border-color: #94a3b8; }
+}
+
+@keyframes bannerWobble {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(1deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.ad-banner:active {
+    transform: scale(0.98);
+    background: #e2e8f0;
 }
 
 h2 {
@@ -131,6 +271,22 @@ h2 {
     margin-bottom: 16px;
     font-size: 24px;
     text-align: center;
+    font-weight: 700;
+    animation: titleGlow 2s infinite, titleBounce 3s infinite;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 0 rgba(30, 58, 138, 0); }
+    50% { text-shadow: 0 0 10px rgba(30, 58, 138, 0.3); }
+    100% { text-shadow: 0 0 0 rgba(30, 58, 138, 0); }
+}
+
+@keyframes titleBounce {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-2px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(2px); }
+    100% { transform: translateY(0); }
 }
 
 .tariff-card {
@@ -142,11 +298,48 @@ h2 {
     transition: all 0.3s;
     text-align: center;
     margin-bottom: 8px;
+    animation: cardAppear 0.5s ease-out;
+    animation-fill-mode: both;
+    position: relative;
+    overflow: hidden;
+}
+
+.tariff-card:nth-child(1) { animation-delay: 0.1s; }
+.tariff-card:nth-child(2) { animation-delay: 0.2s; }
+.tariff-card:nth-child(3) { animation-delay: 0.3s; }
+.tariff-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes cardAppear {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.tariff-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    animation: cardShine 3s infinite;
+}
+
+@keyframes cardShine {
+    0% { transform: rotate(45deg) translateX(-100%); }
+    100% { transform: rotate(45deg) translateX(100%); }
+}
+
+.tariff-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2);
 }
 
 .tariff-card:active {
     transform: scale(0.97);
     border-color: #1e3a8a;
+    background: #e2e8f0;
 }
 
 .tariff-name {
@@ -161,6 +354,12 @@ h2 {
     border-radius: 30px;
     margin: 10px 0;
     text-align: center;
+    animation: detailsPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes detailsPop {
+    from { opacity: 0; transform: scale(0.8) rotate(-2deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
 }
 
 .detail-name {
@@ -168,6 +367,7 @@ h2 {
     font-weight: 700;
     color: #1e3a8a;
     margin-bottom: 8px;
+    animation: detailFade 0.3s ease 0.1s both;
 }
 
 .detail-desc {
@@ -175,12 +375,25 @@ h2 {
     color: #475569;
     margin-bottom: 12px;
     font-style: italic;
+    animation: detailFade 0.3s ease 0.2s both;
 }
 
 .detail-price {
     font-size: 28px;
     font-weight: 800;
     color: #059669;
+    animation: detailFade 0.3s ease 0.3s both, pricePulse 2s infinite;
+}
+
+@keyframes detailFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pricePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 .slot-machine {
@@ -192,6 +405,22 @@ h2 {
     background: linear-gradient(145deg, #e2e8f0, #cbd5e1);
     border-radius: 40px;
     border: 2px solid white;
+    animation: machineGlow 3s infinite, machineRotate 10s infinite;
+}
+
+@keyframes machineGlow {
+    0% { box-shadow: 0 0 10px rgba(30, 58, 138, 0.2); }
+    33% { box-shadow: 0 0 30px rgba(30, 58, 138, 0.4); }
+    66% { box-shadow: 0 0 20px rgba(30, 58, 138, 0.3); }
+    100% { box-shadow: 0 0 10px rgba(30, 58, 138, 0.2); }
+}
+
+@keyframes machineRotate {
+    0% { transform: perspective(500px) rotateX(0deg); }
+    25% { transform: perspective(500px) rotateX(2deg); }
+    50% { transform: perspective(500px) rotateX(0deg); }
+    75% { transform: perspective(500px) rotateX(-2deg); }
+    100% { transform: perspective(500px) rotateX(0deg); }
 }
 
 .slot {
@@ -203,15 +432,23 @@ h2 {
     align-items: center;
     justify-content: center;
     font-size: 48px;
-    box-shadow: inset 0 -6px 0 #94a3b8;
+    box-shadow: inset 0 -6px 0 #94a3b8, 0 10px 15px -5px rgba(0,0,0,0.2);
     border: 2px solid #64748b;
+    transition: all 0.1s;
+    animation: slotIdle 3s infinite;
+}
+
+@keyframes slotIdle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
 }
 
 .slot.spinning {
-    animation: spin 0.1s linear infinite;
+    animation: slotSpin 0.1s steps(2) infinite, slotGlow 0.5s infinite alternate;
 }
 
-@keyframes spin {
+@keyframes slotSpin {
     0% { transform: translateY(0); }
     25% { transform: translateY(-12px); }
     50% { transform: translateY(0); }
@@ -219,11 +456,22 @@ h2 {
     100% { transform: translateY(0); }
 }
 
+@keyframes slotGlow {
+    from { box-shadow: inset 0 -6px 0 #94a3b8, 0 0 5px #f59e0b; }
+    to { box-shadow: inset 0 -6px 0 #94a3b8, 0 0 20px #f59e0b; }
+}
+
 .casino-controls {
     display: flex;
     align-items: center;
     gap: 12px;
     margin: 16px 0;
+    animation: controlsFade 0.5s ease;
+}
+
+@keyframes controlsFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .spin-counter {
@@ -237,6 +485,13 @@ h2 {
     min-width: 60px;
     text-align: center;
     border: 2px solid #94a3b8;
+    animation: counterPulse 2s infinite;
+}
+
+@keyframes counterPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 .win-image {
@@ -247,6 +502,18 @@ h2 {
     background-size: cover;
     background-position: center;
     border: 4px solid #1e3a8a;
+    animation: winImageAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), winImageFloat 3s infinite;
+}
+
+@keyframes winImageAppear {
+    from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes winImageFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
 
 .win-image.hidden {
@@ -260,12 +527,25 @@ h2 {
     padding: 16px;
     border-radius: 40px;
     font-weight: bold;
+    animation: resultPop 0.5s ease;
+}
+
+@keyframes resultPop {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .casino-result.win {
     background: linear-gradient(145deg, #d1fae5, #a7f3d0);
     color: #065f46;
     border: 2px solid #059669;
+    animation: winResultPulse 2s infinite;
+}
+
+@keyframes winResultPulse {
+    0% { box-shadow: 0 0 0 0 #059669; }
+    50% { box-shadow: 0 0 15px 5px #059669; }
+    100% { box-shadow: 0 0 0 0 #059669; }
 }
 
 .casino-result.lose {
