@@ -13,8 +13,12 @@ const winImages = [
     'https://i.ibb.co/wrKcfZvP/photo-9-2026-03-08-21-15-12.jpg'
 ];
 
+// Символы для казино (эмодзи)
+const casinoSymbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣'];
+
 // Данные о выбранном тарифе
 let selectedTariff = null;
+let isSpinning = false;
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', function() {
@@ -134,14 +138,11 @@ function confirmPayment() {
     selectedTariff = null;
 }
 
-// Казино фек
-let casinoSymbols = ['7', 'BAR', 'WIN', 'CHERRY', 'BELL', 'STAR'];
-let isSpinning = false;
-
+// Казино функции
 function resetCasino() {
-    document.getElementById('slot1').textContent = '7';
-    document.getElementById('slot2').textContent = '7';
-    document.getElementById('slot3').textContent = '7';
+    document.getElementById('slot1').textContent = '🍒';
+    document.getElementById('slot2').textContent = '🍒';
+    document.getElementById('slot3').textContent = '🍒';
     document.getElementById('casinoResult').innerHTML = '';
     document.getElementById('casinoResult').className = 'casino-result';
     
@@ -189,7 +190,7 @@ function spinSlots() {
         let resultDiv = document.getElementById('casinoResult');
         
         if (results[0] === results[1] && results[1] === results[2]) {
-            // Выигрыш - показываем случайное фото из твоих
+            // Выигрыш - показываем случайное фото на весь экран
             let randomIndex = Math.floor(Math.random() * winImages.length);
             winImage.style.backgroundImage = `url('${winImages[randomIndex]}')`;
             winImage.classList.remove('hidden');
