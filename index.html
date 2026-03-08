@@ -9,13 +9,11 @@
 </head>
 <body>
     <div class="app">
-        <!-- Шапка с Lucky Star -->
         <div class="header">
-            <img src="https://i.ibb.co/gMSrc8wN/photo-1-2026-03-08-21-15-12.jpg" alt="Lucky Star" class="logo">
+            <img src="https://i.ibb.co/gMSrc8wN/photo-1-2026-03-08-21-15-12.jpg" class="logo">
             <h1>DegradationVPN</h1>
         </div>
 
-        <!-- Главное меню (3 кнопки) -->
         <div id="mainMenu" class="menu active">
             <button class="btn primary" onclick="App.showBuyMenu()">Купить</button>
             <button class="btn secondary" onclick="App.showCasinoMenu()">Казино фек</button>
@@ -25,43 +23,40 @@
             </div>
         </div>
 
-        <!-- Меню покупки тарифов -->
         <div id="buyMenu" class="menu hidden">
             <h2>Выберите тариф</h2>
             
-            <div class="tariff-card" onclick="App.selectTariff(30, 20)">
+            <div class="tariff-card" onclick="App.selectTariff(30, 20, 'Неделька, просто попробовать')">
                 <div class="tariff-name">30гб - 20р</div>
-                <div class="tariff-desc">Неделька, просто попробовать</div>
             </div>
             
-            <div class="tariff-card" onclick="App.selectTariff(100, 40)">
+            <div class="tariff-card" onclick="App.selectTariff(100, 40, 'Уже получше, купите еще (пж)')">
                 <div class="tariff-name">100гб - 40р</div>
-                <div class="tariff-desc">Уже получше, купите еще (пж)</div>
             </div>
             
-            <div class="tariff-card" onclick="App.selectTariff(120, 105)">
+            <div class="tariff-card" onclick="App.selectTariff(120, 105, 'Стандарт, просто стандарт')">
                 <div class="tariff-name">120гб - 105р</div>
-                <div class="tariff-desc">Стандарт, просто стандарт</div>
             </div>
             
-            <div class="tariff-card" onclick="App.selectTariff(150, 180)">
+            <div class="tariff-card" onclick="App.selectTariff(150, 180, 'Ого, самое дорогое что есть')">
                 <div class="tariff-name">150гб - 180р</div>
-                <div class="tariff-desc">Ого, самое дорогое что есть</div>
             </div>
             
             <button class="btn balance" onclick="App.topup()">Пополнить баланс</button>
             <button class="btn back" onclick="App.showMainMenu()">Назад</button>
         </div>
 
-        <!-- Подтверждение покупки -->
         <div id="confirmMenu" class="menu hidden">
             <h2>Подтверждение</h2>
-            <div id="tariffDetails" class="tariff-details"></div>
+            <div class="tariff-details">
+                <div id="tariffName" class="detail-name"></div>
+                <div id="tariffDesc" class="detail-desc"></div>
+                <div id="tariffPrice" class="detail-price"></div>
+            </div>
             <button class="btn primary" onclick="App.confirmPayment()">Оплатить</button>
             <button class="btn back" onclick="App.showBuyMenu()">Назад</button>
         </div>
 
-        <!-- Казино (только эмодзи) -->
         <div id="casinoMenu" class="menu hidden">
             <h2>Казино фек</h2>
             
