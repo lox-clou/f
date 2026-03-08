@@ -18,7 +18,7 @@ let selectedTariff = null;
 let isSpinning = false;
 let spinCount = 0;
 
-window.App = {
+const App = {
     showMainMenu() {
         document.getElementById('mainMenu').classList.add('active');
         document.getElementById('mainMenu').classList.remove('hidden');
@@ -96,9 +96,9 @@ window.App = {
 
     selectTariff(gb, price, desc) {
         selectedTariff = { gb, price, desc };
-        document.getElementById('tariffName').textContent = `${gb}гб`;
-        document.getElementById('tariffDesc').textContent = desc;
-        document.getElementById('tariffPrice').textContent = `${price}р`;
+        document.getElementById('tariffName').innerText = `${gb}гб`;
+        document.getElementById('tariffDesc').innerText = desc;
+        document.getElementById('tariffPrice').innerText = `${price}р`;
         this.showConfirmMenu();
     },
 
@@ -115,14 +115,14 @@ window.App = {
     },
 
     resetCasino() {
-        document.getElementById('slot1').textContent = '🍒';
-        document.getElementById('slot2').textContent = '🍒';
-        document.getElementById('slot3').textContent = '🍒';
+        document.getElementById('slot1').innerText = '🍒';
+        document.getElementById('slot2').innerText = '🍒';
+        document.getElementById('slot3').innerText = '🍒';
         document.getElementById('casinoResult').innerHTML = '';
         document.getElementById('casinoResult').className = 'casino-result';
         document.getElementById('winImage').classList.add('hidden');
         spinCount = 0;
-        document.getElementById('spinCounter').textContent = '0';
+        document.getElementById('spinCounter').innerText = '0';
     },
 
     spin() {
@@ -130,7 +130,7 @@ window.App = {
         
         isSpinning = true;
         spinCount++;
-        document.getElementById('spinCounter').textContent = spinCount;
+        document.getElementById('spinCounter').innerText = spinCount;
         
         const spinButton = document.getElementById('spinButton');
         spinButton.disabled = true;
@@ -145,7 +145,7 @@ window.App = {
         const spinInterval = setInterval(() => {
             slots.forEach(slot => {
                 const randomSymbol = casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)];
-                slot.textContent = randomSymbol;
+                slot.innerText = randomSymbol;
             });
         }, 60);
         
@@ -156,14 +156,11 @@ window.App = {
             let results;
             let isWin;
             
-            // Проверяем, является ли текущая попытка 30-й (30, 60, 90, 120...)
             if (spinCount % 30 === 0) {
-                // Гарантированный выигрыш
                 const winSymbol = casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)];
                 results = [winSymbol, winSymbol, winSymbol];
                 isWin = true;
             } else {
-                // Случайный результат (почти всегда проигрыш)
                 do {
                     results = [
                         casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)],
@@ -174,9 +171,9 @@ window.App = {
                 } while (isWin);
             }
             
-            document.getElementById('slot1').textContent = results[0];
-            document.getElementById('slot2').textContent = results[1];
-            document.getElementById('slot3').textContent = results[2];
+            document.getElementById('slot1').innerText = results[0];
+            document.getElementById('slot2').innerText = results[1];
+            document.getElementById('slot3').innerText = results[2];
             
             const resultDiv = document.getElementById('casinoResult');
             
@@ -199,4 +196,5 @@ window.App = {
     }
 };
 
+window.App = App;
 App.showMainMenu();
