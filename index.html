@@ -4,326 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DegradationVPN</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(145deg, #e6f0ff 0%, #b8d1ff 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 12px;
-        }
-
-        .app {
-            max-width: 420px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 51, 102, 0.4);
-            padding: 24px;
-            border: 2px solid rgba(30, 58, 138, 0.3);
-            margin: 16px 0;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-            padding: 12px 18px;
-            border-radius: 28px;
-            color: white;
-            box-shadow: 0 8px 16px -4px rgba(30, 58, 138, 0.4);
-        }
-
-        .logo {
-            width: 52px;
-            height: 52px;
-            border-radius: 26px;
-            object-fit: cover;
-            border: 3px solid white;
-        }
-
-        .header h1 {
-            font-size: 22px;
-            font-weight: 700;
-        }
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .menu.hidden {
-            display: none;
-        }
-
-        .btn {
-            padding: 16px 20px;
-            border: none;
-            border-radius: 24px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: white;
-        }
-
-        .btn:active {
-            transform: scale(0.96);
-        }
-
-        .primary {
-            background: linear-gradient(145deg, #1e3a8a, #2563eb);
-            box-shadow: 0 8px 0 #0f2a5a;
-        }
-
-        .secondary {
-            background: linear-gradient(145deg, #3b82f6, #60a5fa);
-            box-shadow: 0 8px 0 #1e4f9e;
-        }
-
-        .support {
-            background: linear-gradient(145deg, #0284c7, #38bdf8);
-            box-shadow: 0 8px 0 #0369a1;
-        }
-
-        .balance {
-            background: linear-gradient(145deg, #059669, #10b981);
-            box-shadow: 0 8px 0 #047857;
-        }
-
-        .spin {
-            background: linear-gradient(145deg, #d97706, #f59e0b);
-            box-shadow: 0 8px 0 #b45309;
-        }
-
-        .back {
-            background: linear-gradient(145deg, #475569, #64748b);
-            box-shadow: 0 8px 0 #334155;
-        }
-
-        .ad-banner {
-            background: #f8fafc;
-            padding: 18px;
-            border-radius: 24px;
-            text-align: center;
-            color: #334155;
-            border: 2px dashed #94a3b8;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        h2 {
-            color: #1e3a8a;
-            margin-bottom: 16px;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .tariff-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .tariff-card {
-            background: white;
-            padding: 20px 12px;
-            border-radius: 24px;
-            border: 2px solid #cbd5e1;
-            cursor: pointer;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tariff-card:active {
-            transform: scale(0.95);
-            border-color: #1e3a8a;
-        }
-
-        .tariff-emoji {
-            font-size: 32px;
-        }
-
-        .tariff-name {
-            font-weight: 700;
-            font-size: 18px;
-            color: #1e3a8a;
-        }
-
-        .tariff-price {
-            font-size: 20px;
-            font-weight: 800;
-            color: #059669;
-            background: rgba(5, 150, 105, 0.1);
-            padding: 4px 12px;
-            border-radius: 30px;
-        }
-
-        .tariff-details {
-            background: #f1f5f9;
-            padding: 24px;
-            border-radius: 24px;
-            margin: 10px 0;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #1e3a8a;
-        }
-
-        .slot-machine {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-            padding: 24px;
-            background: #e2e8f0;
-            border-radius: 32px;
-        }
-
-        .slot {
-            width: 90px;
-            height: 110px;
-            background: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            box-shadow: inset 0 -6px 0 #94a3b8;
-            border: 2px solid #64748b;
-        }
-
-        .slot.spinning {
-            animation: spin 0.1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: translateY(0); }
-            25% { transform: translateY(-10px); }
-            50% { transform: translateY(0); }
-            75% { transform: translateY(10px); }
-            100% { transform: translateY(0); }
-        }
-
-        .casino-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .spin-counter {
-            background: white;
-            padding: 12px 16px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #1e3a8a;
-            box-shadow: 0 4px 0 #cbd5e1;
-        }
-
-        .win-image {
-            width: 100%;
-            height: 220px;
-            margin: 10px 0;
-            border-radius: 24px;
-            background-size: cover;
-            background-position: center;
-            border: 4px solid #1e3a8a;
-        }
-
-        .win-image.hidden {
-            display: none;
-        }
-
-        .casino-result {
-            text-align: center;
-            font-size: 18px;
-            margin: 16px 0;
-            padding: 16px;
-            border-radius: 30px;
-            font-weight: bold;
-        }
-
-        .casino-result.win {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .casino-result.lose {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="app">
-        <!-- Шапка -->
+        <!-- Шапка с Lucky Star -->
         <div class="header">
             <img src="https://i.ibb.co/gMSrc8wN/photo-1-2026-03-08-21-15-12.jpg" alt="Lucky Star" class="logo">
             <h1>DegradationVPN</h1>
         </div>
 
-        <!-- Главное меню -->
-        <div id="mainMenu" class="menu">
-            <button class="btn primary" onclick="App.buy()">Купить</button>
-            <button class="btn secondary" onclick="App.casino()">Казино фек</button>
+        <!-- Главное меню (3 кнопки) -->
+        <div id="mainMenu" class="menu active">
+            <button class="btn primary" onclick="App.showBuyMenu()">Купить</button>
+            <button class="btn secondary" onclick="App.showCasinoMenu()">Казино фек</button>
             <button class="btn support" onclick="App.support()">Связь с поддержкой</button>
-            <div class="ad-banner" onclick="App.ad()">Здесь могла быть ваша реклама</div>
+            <div class="ad-banner" onclick="App.ad()">
+                Здесь могла быть ваша реклама
+            </div>
         </div>
 
-        <!-- Меню покупки -->
+        <!-- Меню покупки тарифов -->
         <div id="buyMenu" class="menu hidden">
             <h2>Выберите тариф</h2>
-            <div class="tariff-grid">
-                <div class="tariff-card" onclick="App.selectTariff(30, 20)">
-                    <div class="tariff-emoji">🌱</div>
-                    <div class="tariff-name">30гб</div>
-                    <div class="tariff-price">20р</div>
-                </div>
-                <div class="tariff-card" onclick="App.selectTariff(100, 40)">
-                    <div class="tariff-emoji">🌿</div>
-                    <div class="tariff-name">100гб</div>
-                    <div class="tariff-price">40р</div>
-                </div>
-                <div class="tariff-card" onclick="App.selectTariff(120, 105)">
-                    <div class="tariff-emoji">🌲</div>
-                    <div class="tariff-name">120гб</div>
-                    <div class="tariff-price">105р</div>
-                </div>
-                <div class="tariff-card" onclick="App.selectTariff(150, 180)">
-                    <div class="tariff-emoji">👑</div>
-                    <div class="tariff-name">150гб</div>
-                    <div class="tariff-price">180р</div>
-                </div>
+            
+            <div class="tariff-card" onclick="App.selectTariff(30, 20)">
+                <div class="tariff-name">30гб - 20р</div>
+                <div class="tariff-desc">Неделька, просто попробовать</div>
             </div>
+            
+            <div class="tariff-card" onclick="App.selectTariff(100, 40)">
+                <div class="tariff-name">100гб - 40р</div>
+                <div class="tariff-desc">Уже получше, купите еще (пж)</div>
+            </div>
+            
+            <div class="tariff-card" onclick="App.selectTariff(120, 105)">
+                <div class="tariff-name">120гб - 105р</div>
+                <div class="tariff-desc">Стандарт, просто стандарт</div>
+            </div>
+            
+            <div class="tariff-card" onclick="App.selectTariff(150, 180)">
+                <div class="tariff-name">150гб - 180р</div>
+                <div class="tariff-desc">Ого, самое дорогое что есть</div>
+            </div>
+            
             <button class="btn balance" onclick="App.topup()">Пополнить баланс</button>
             <button class="btn back" onclick="App.showMainMenu()">Назад</button>
         </div>
 
-        <!-- Подтверждение -->
+        <!-- Подтверждение покупки -->
         <div id="confirmMenu" class="menu hidden">
             <h2>Подтверждение</h2>
             <div id="tariffDetails" class="tariff-details"></div>
@@ -331,221 +61,25 @@
             <button class="btn back" onclick="App.showBuyMenu()">Назад</button>
         </div>
 
-        <!-- Казино -->
+        <!-- Казино (только эмодзи) -->
         <div id="casinoMenu" class="menu hidden">
-            <h2>🎰 Казино фек</h2>
+            <h2>Казино фек</h2>
+            
             <div class="slot-machine">
                 <div class="slot" id="slot1">🍒</div>
                 <div class="slot" id="slot2">🍒</div>
                 <div class="slot" id="slot3">🍒</div>
             </div>
-            <div class="casino-controls">
-                <button class="btn spin" onclick="App.spin()">Крутить</button>
-                <div class="spin-counter" id="spinCounter">Попыток: 0</div>
-            </div>
+            
+            <button class="btn spin" onclick="App.spin()">Крутить</button>
+            
             <div id="winImage" class="win-image hidden"></div>
             <div id="casinoResult" class="casino-result"></div>
+            
+            <button class="btn back" onclick="App.showMainMenu()">Назад</button>
         </div>
     </div>
 
-    <script>
-        // Telegram Web App
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
-        // Фото для выигрыша
-        const winImages = [
-            'https://i.ibb.co/tPXDXYcM/photo-2-2026-03-08-21-15-12.jpg',
-            'https://i.ibb.co/67v8RMx0/photo-3-2026-03-08-21-15-12.jpg',
-            'https://i.ibb.co/YTcFgFRH/photo-4-2026-03-08-21-15-12.jpg',
-            'https://i.ibb.co/TQpCnCh/photo-5-2026-03-08-21-15-12.jpg',
-            'https://i.ibb.co/7NT1BJsq/photo-6-2026-03-08-21-15-12.jpg',
-            'https://i.ibb.co/prZckKvq/photo-7-2026-03-08-21-15-12.jpg',
-            'https://i.ibb.co/8nyGwSKk/photo-8-2026-03-08-21-15-12.jpg',
-            'https://i.ibb.co/wrKcfZvP/photo-9-2026-03-08-21-15-12.jpg'
-        ];
-
-        // Символы казино (только эмодзи)
-        const casinoSymbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '🎰', '⭐', '🔔'];
-
-        // Состояние
-        let selectedTariff = null;
-        let isSpinning = false;
-        let spinCount = 0;
-
-        // Глобальный объект с методами
-        window.App = {
-            // Навигация
-            showMainMenu: function() {
-                document.getElementById('mainMenu').classList.remove('hidden');
-                document.getElementById('buyMenu').classList.add('hidden');
-                document.getElementById('confirmMenu').classList.add('hidden');
-                document.getElementById('casinoMenu').classList.add('hidden');
-            },
-
-            showBuyMenu: function() {
-                document.getElementById('mainMenu').classList.add('hidden');
-                document.getElementById('buyMenu').classList.remove('hidden');
-                document.getElementById('confirmMenu').classList.add('hidden');
-                document.getElementById('casinoMenu').classList.add('hidden');
-            },
-
-            showConfirmMenu: function() {
-                document.getElementById('mainMenu').classList.add('hidden');
-                document.getElementById('buyMenu').classList.add('hidden');
-                document.getElementById('confirmMenu').classList.remove('hidden');
-                document.getElementById('casinoMenu').classList.add('hidden');
-            },
-
-            showCasinoMenu: function() {
-                document.getElementById('mainMenu').classList.add('hidden');
-                document.getElementById('buyMenu').classList.add('hidden');
-                document.getElementById('confirmMenu').classList.add('hidden');
-                document.getElementById('casinoMenu').classList.remove('hidden');
-                this.resetCasino();
-            },
-
-            // Действия
-            buy: function() {
-                this.showBuyMenu();
-            },
-
-            casino: function() {
-                this.showCasinoMenu();
-            },
-
-            support: function() {
-                tg.sendData(JSON.stringify({ action: 'support' }));
-                tg.showAlert('Связь с поддержкой будет открыта в боте');
-            },
-
-            ad: function() {
-                tg.showAlert('По вопросам рекламы обратитесь в поддержку');
-            },
-
-            topup: function() {
-                tg.showPopup({
-                    title: 'Пополнение баланса',
-                    message: 'Введите сумму:',
-                    buttons: [
-                        { type: 'default', text: '100', id: '100' },
-                        { type: 'default', text: '200', id: '200' },
-                        { type: 'default', text: '500', id: '500' },
-                        { type: 'cancel' }
-                    ]
-                }, (buttonId) => {
-                    if (buttonId) {
-                        tg.sendData(JSON.stringify({
-                            action: 'topup',
-                            amount: parseInt(buttonId)
-                        }));
-                        tg.showAlert('✅ Запрос на пополнение отправлен');
-                    }
-                });
-            },
-
-            // Покупки
-            selectTariff: function(gb, price) {
-                selectedTariff = { gb, price };
-                document.getElementById('tariffDetails').innerHTML = 
-                    `<span style="font-size: 20px;">${gb}гб</span><br>` +
-                    `<span style="color: #059669; font-size: 24px;">${price}р</span>`;
-                this.showConfirmMenu();
-            },
-
-            confirmPayment: function() {
-                if (!selectedTariff) return;
-                tg.sendData(JSON.stringify({
-                    action: 'purchase',
-                    gb: selectedTariff.gb,
-                    price: selectedTariff.price
-                }));
-                tg.showAlert(`✅ Запрос на покупку ${selectedTariff.gb}гб отправлен`);
-                this.showMainMenu();
-                selectedTariff = null;
-            },
-
-            // Казино
-            resetCasino: function() {
-                document.getElementById('slot1').textContent = '🍒';
-                document.getElementById('slot2').textContent = '🍒';
-                document.getElementById('slot3').textContent = '🍒';
-                document.getElementById('casinoResult').innerHTML = '';
-                document.getElementById('casinoResult').className = 'casino-result';
-                document.getElementById('winImage').classList.add('hidden');
-                spinCount = 0;
-                document.getElementById('spinCounter').textContent = 'Попыток: 0';
-            },
-
-            spin: function() {
-                if (isSpinning) return;
-                
-                isSpinning = true;
-                spinCount++;
-                document.getElementById('spinCounter').textContent = `Попыток: ${spinCount}`;
-                
-                const spinButton = event.target;
-                spinButton.disabled = true;
-                spinButton.style.opacity = '0.7';
-                
-                // Прячем фото
-                const winImage = document.getElementById('winImage');
-                winImage.classList.add('hidden');
-                
-                // Анимация
-                const slots = document.querySelectorAll('.slot');
-                slots.forEach(slot => slot.classList.add('spinning'));
-                
-                // Быстрая смена символов
-                const spinInterval = setInterval(() => {
-                    slots.forEach(slot => {
-                        const randomSymbol = casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)];
-                        slot.textContent = randomSymbol;
-                    });
-                }, 60);
-                
-                // Остановка
-                setTimeout(() => {
-                    clearInterval(spinInterval);
-                    slots.forEach(slot => slot.classList.remove('spinning'));
-                    
-                    // Результаты
-                    const results = [
-                        casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)],
-                        casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)],
-                        casinoSymbols[Math.floor(Math.random() * casinoSymbols.length)]
-                    ];
-                    
-                    document.getElementById('slot1').textContent = results[0];
-                    document.getElementById('slot2').textContent = results[1];
-                    document.getElementById('slot3').textContent = results[2];
-                    
-                    // Проверка выигрыша
-                    const isWin = results[0] === results[1] && results[1] === results[2] && Math.random() < 0.05;
-                    
-                    const resultDiv = document.getElementById('casinoResult');
-                    
-                    if (isWin) {
-                        const randomIndex = Math.floor(Math.random() * winImages.length);
-                        winImage.style.backgroundImage = `url('${winImages[randomIndex]}')`;
-                        winImage.classList.remove('hidden');
-                        
-                        resultDiv.innerHTML = '🎉 ПОБЕДА! Казино фек - идите закупайтесь!';
-                        resultDiv.className = 'casino-result win';
-                    } else {
-                        resultDiv.innerHTML = '😢 Жалко, но казино фек';
-                        resultDiv.className = 'casino-result lose';
-                    }
-                    
-                    isSpinning = false;
-                    spinButton.disabled = false;
-                    spinButton.style.opacity = '1';
-                }, 1500);
-            }
-        };
-
-        // Показываем главное меню при загрузке
-        App.showMainMenu();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
